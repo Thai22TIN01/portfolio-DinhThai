@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đình Thái — Portfolio & Creative Developer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111116;
+      --surface-glass: rgba(20, 20, 30, 0.45);
+      --text: #f0f0f5;
+      --text-muted: #a0a0b5;
+      --accent: #7c8eff;
+      --accent-glow: rgba(124, 142, 255, 0.25);
+      --border: rgba(120, 120, 140, 0.18);
+      --glass-blur: blur(16px);
+      --transition: all 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    html { scroll-behavior: smooth; }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      background: var(--surface-glass);
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    nav.scrolled {
+      background: rgba(17, 17, 22, 0.85);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--text), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+      text-shadow: 0 0 12px var(--accent-glow);
+    }
+    header {
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #0a0a0f 0%, #14141e 100%);
+      position: relative;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 15% 85%, rgba(124, 142, 255, 0.09) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-content {
+      max-width: 980px;
+      padding: 0 6%;
+      opacity: 0;
+      transform: translateY(60px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+    .hero-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h1 {
+      font-size: clamp(4rem, 8.5vw, 7rem);
+      font-weight: 900;
+      letter-spacing: -2.5px;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+    h1 .name {
+      font-size: inherit;
+      background: linear-gradient(90deg, #ffffff, #e0e0ff, var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    h1 .student {
+      font-size: 0.75em;
+      opacity: 0.9;
+    }
+    h1 .major {
+      font-size: 0.58em;
+      opacity: 0.75;
+      color: var(--accent);
+    }
+    .subtitle {
+      font-size: clamp(1.35rem, 2.8vw, 1.7rem);
+      color: var(--text-muted);
+      margin: 0 0 3rem;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    .cta-btn {
+      padding: 14px 40px;
+      background: linear-gradient(135deg, var(--accent), #5a6fff);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      box-shadow: 0 10px 35px rgba(92, 110, 255, 0.3);
+      transition: var(--transition);
+    }
+    .cta-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(92, 110, 255, 0.45);
+    }
+    section {
+      padding: 120px 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    h2 {
+      font-size: 3.5rem;
+      text-align: center;
+      margin-bottom: 4.5rem;
+      position: relative;
+      font-weight: 800;
+    }
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 520px) 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .about-img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+      transition: var(--transition);
+      display: block;
+      margin: 0 auto;
+      object-fit: cover;
+    }
+    .about-img:hover {
+      transform: scale(1.04);
+    }
+    .glass-card {
+      background: var(--surface-glass);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 260px; /* Tăng chiều cao để cân đối text dài */
+    }
+    .glass-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45), 0 0 30px var(--accent-glow);
+    }
+    .glass-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+    .glass-card p {
+      font-size: 0.95rem; /* Giảm nhẹ font để text gọn hơn */
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin: 0;
+      word-break: break-word; /* Cho phép từ dài xuống dòng */
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.8rem;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 3rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    .project-card:hover {
+      transform: translateY(-16px);
+      border-color: var(--accent);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), 0 0 40px var(--accent-glow);
+    }
+    .project-img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .project-card:hover .project-img {
+      transform: scale(1.08);
+    }
+    .project-info {
+      padding: 2rem;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 4rem;
+    }
+    .social-icon {
+      font-size: 2.6rem;
+      color: var(--text-muted);
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .social-icon:hover {
+      color: var(--accent);
+      transform: translateY(-10px) scale(1.15);
+      text-shadow: 0 0 20px var(--accent-glow);
+    }
+    footer {
+      text-align: center;
+      padding: 5rem 0 3rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    @media (max-width: 1200px) {
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 980px) {
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+      .about-img { max-width: 300px; }
+      .glass-card { padding: 2rem; min-height: auto; }
+    }
+    @media (max-width: 600px) {
+      .about-img { max-width: 260px; }
+      h1 { font-size: 3.8rem; }
+      h1 .student, h1 .major { font-size: 0.7em; }
+      section { padding: 80px 6%; }
+      .nav-links a { margin-left: 1.2rem; font-size: 0.95rem; }
+      .glass-card p { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-container">
+      <div class="logo">Đình Thái</div>
+      <div class="nav-links">
+        <a href="#about">Về tôi</a>
+        <a href="#skills">Kỹ năng</a>
+        <a href="#projects">Dự án</a>
+        <a href="#contact">Liên hệ</a>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <div class="hero-content">
+      <h1>
+        Mình là <span class="name">Thái</span> 
+        <span class="student">sinh viên</span> 
+        <span class="major">ngành CNTT</span>
+      </h1>
+      <p class="subtitle">Trường Đại học Nam Cần Thơ</p>
+      <a href="#contact" class="cta-btn">Liên hệ tôi →</a>
+    </div>
+  </header>
+
+  <section id="about">
+    <h2>Về tôi</h2>
+    <div class="about-grid">
+      <div>
+        <img 
+          src="https://i.postimg.cc/XvK74xJR/DThai34.jpg" 
+          alt="Đình Thái" 
+          class="about-img"
+        >
+      </div>
+      <div class="glass-card">
+        <p>Mình là Thái, sinh viên năm 4 ngành CNTT Trường đại học Nam Cần Thơ</p>
+        <p>Trong suốt hành trình học tập, mình đã thực hành và tham gia xây dựng nhiều dự án từ quy mô demo đến sản phẩm báo cáo thực tế, giúp củng cố nền tảng lập trình và tư duy phát triển phần mềm.
+Hiện tại, mình đang tập trung sâu vào thiết kế giao diện web cá nhân (portfolio) với các công nghệ hiện đại.</p>
+        <p style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Hiện tại tập trung vào:</p>
+        <ul style="list-style: none; padding-left: 0; font-size: 1.15rem; color: var(--accent);">
+          <li>• Dùng HTML, CSS, JavaScript thuần</li>
+          <li>• Làm layout responsive (desktop → mobile)</li>
+          <li>• Biết React để chia component, render dữ liệu</li>
+          <li>• Dùng TailwindCSS / CSS custom để tạo UI hiện đại</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" style="background: linear-gradient(to bottom, var(--bg), var(--surface));">
+    <h2>Kỹ năng chính</h2>
+    <div class="skills-grid">
+      <div class="glass-card">
+        <h3>Frontend</h3>
+        <p>React - Next.js - TypeScript - TailwindCSS - Framer Motion - GSAP</p>
+      </div>
+      <div class="glass-card">
+        <h3>Backend & Data</h3>
+        <p>Node.js - NestJS - PostgreSQL - Prisma - Supabase - Redis</p>
+      </div>
+      <div class="glass-card">
+        <h3>Design & Tools</h3>
+        <p>Figma - Motion Design - Webflow - Vercel - Docker - Git</p>
+      </div>
+      <div class="glass-card">
+        <h3>Emerging</h3>
+        <p>Three.js - WebGL - AI / LLM integration - Web3 basics</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Dự án nổi bật</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&auto=format&fit=crop" alt="Tra cứu chứng chỉ" class="project-img">
+        <div class="project-info">
+          <h3 style="font-size:1.7rem;">Website tra cứu chứng chỉ số</h3>
+          <p>Blockchain → MetaMask Wallet → React → Node.js → Tích hợp tra cứu nhanh, xác thực dữ liệu on-chain</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&auto=format&fit=crop" alt="Quản lý cắt tóc" class="project-img">
+        <div class="project-info">
+          <h3 style="font-size:1.7rem;">Website quản lý và đặt lịch cắt tóc</h3>
+          <p>Node.js → Vite → SQL Server → Interactive UI → Booking calendar, quản lý lịch hẹn</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="background:var(--surface);">
+    <h2>Kết nối cùng tôi</h2>
+    <p style="text-align:center; font-size:1.4rem; max-width:760px; margin:0 auto 4rem; color:var(--text-muted);">
+      Có dự án thú vị? Muốn hợp tác, trao đổi ý tưởng hay chỉ đơn giản trò chuyện về công nghệ? Mình luôn sẵn sàng.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:ndt22tin01@gmail.com" class="social-icon"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/Thai22TIN01" target="_blank" class="social-icon"><i class="fab fa-github"></i></a>
+      <a href="https://www.facebook.com/dinhthaine.1504" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Đình Thái</p>
+  </footer>
+
+  <script>
+    const fadeElements = document.querySelectorAll('.hero-content, .glass-card, .project-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeElements.forEach(el => observer.observe(el));
+
+    window.addEventListener('scroll', () => {
+      document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 80);
+    });
+  </script>
+
+</body>
+</html>
