@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Đình Thái — Portfolio & Creative Developer</title>
+  <title>Đình Thái — IT Engineer | QA/Tester | Web Development</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     :root {
@@ -292,6 +292,122 @@
       .nav-links a { margin-left: 1.2rem; font-size: 0.95rem; }
       .glass-card p { font-size: 0.9rem; }
     }
+
+    /* HERO 2.0 — Chỉ nâng cấp khu vực đầu trang */
+    .hero-section {
+      min-height: 100svh; height: auto;
+      padding: 120px 5% 100px;
+      background: radial-gradient(ellipse at 75% 45%, rgba(83,105,248,.18), transparent 55%),
+                  linear-gradient(135deg, #0a0a0f, #141422);
+      overflow: hidden;
+    }
+    .hero-content.hero-v2 {
+      position: relative; z-index: 1; width: 100%; max-width: 1250px;
+      padding: 0; margin: 0 auto;
+      display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+      align-items: center; gap: clamp(2rem, 5vw, 5rem); text-align: left;
+    }
+    .hero-text { min-width: 0; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 9px 16px; border: 1px solid rgba(124,142,255,.3);
+      border-radius: 50px; font-size: .74rem; letter-spacing: 1.5px;
+      color: #aeb9ff; margin-bottom: 26px;
+    }
+    .status-dot {
+      display: inline-block; width: 8px; height: 8px; flex: 0 0 8px;
+      background: #6ee7b7; border-radius: 50%; box-shadow: 0 0 12px #6ee7b7;
+    }
+    .hero-greeting { color: var(--text-muted); font-size: 1.35rem; margin-bottom: 8px; }
+    .hero-title {
+      font-size: clamp(3.1rem, 6.8vw, 6.6rem); font-weight: 900;
+      letter-spacing: -.055em; line-height: 1.08; margin-bottom: 20px;
+      white-space: nowrap;
+    }
+    .hero-title span {
+      background: linear-gradient(90deg, #fff, #98a5ff, #5369f8);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero-role {
+      text-align: left; font-size: clamp(1.5rem, 2.6vw, 2.5rem);
+      line-height: 1.25; font-weight: 750; margin-bottom: 24px;
+    }
+    .hero-role::after { display: none; }
+    .hero-role span { color: #98a5ff; }
+    .hero-description { max-width: 530px; color: var(--text-muted); font-size: 1.02rem; line-height: 1.9; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+    .hero-primary-btn, .hero-secondary-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 11px;
+      padding: 14px 23px; border-radius: 50px; font-size: .94rem;
+      font-weight: 600; text-decoration: none; transition: transform .3s, box-shadow .3s, background .3s;
+    }
+    .hero-primary-btn { background: #5369f8; color: white; box-shadow: 0 8px 30px rgba(83,105,248,.3); }
+    .hero-secondary-btn { color: white; border: 1px solid rgba(255,255,255,.25); }
+    .hero-primary-btn:hover, .hero-secondary-btn:hover {
+      transform: translateY(-4px); box-shadow: 0 12px 35px rgba(83,105,248,.3);
+    }
+    .hero-visual { position: relative; width: 100%; max-width: 370px; margin: 0 auto; }
+    .hero-image-glow {
+      position: absolute; inset: -25px; background: #5369f8;
+      filter: blur(85px); opacity: .28; border-radius: 50%;
+    }
+    .hero-image-frame {
+      position: relative; width: 100%; aspect-ratio: 4/5; overflow: hidden;
+      border-radius: 26px; border: 1px solid rgba(152,165,255,.25);
+      transform: rotate(2deg); transition: transform .5s;
+      box-shadow: 0 30px 90px rgba(0,0,0,.5);
+    }
+    .hero-image-frame:hover { transform: rotate(0) scale(1.03); }
+    .hero-portrait { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .hero-floating-label {
+      position: absolute; bottom: 18px; left: -20px; display: flex;
+      align-items: center; gap: 10px; padding: 13px 17px;
+      background: rgba(20,20,30,.86); backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,.12); border-radius: 15px;
+      font-size: .84rem; color: #fff;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 12px; color: #a0a0b5;
+      text-decoration: none; font-size: .69rem; letter-spacing: 2px; white-space: nowrap;
+    }
+    .hero-scroll i { animation: arrowBounce 1.6s ease-in-out infinite; }
+    @keyframes arrowBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+    .hero-marquee { width: 100%; overflow: hidden; background: #5369f8; padding: 19px 0; }
+    .marquee-track { display: flex; width: max-content; animation: marqueeMove 25s linear infinite; }
+    .marquee-group { display: flex; align-items: center; flex-shrink: 0; gap: 35px; padding-right: 35px; }
+    .marquee-group span {
+      color: white; font-size: clamp(1.1rem, 2.3vw, 2.2rem);
+      font-weight: 800; letter-spacing: 2px; white-space: nowrap;
+    }
+    .marquee-group b { color: #c8ceff; font-size: 1.7rem; }
+    @keyframes marqueeMove { to { transform: translateX(-50%); } }
+    #about, #skills, #projects, #contact { scroll-margin-top: 75px; }
+    @media (max-width: 900px) {
+      .hero-section { padding: 115px 6% 105px; }
+      .hero-content.hero-v2 { grid-template-columns: 1fr; gap: 55px; text-align: center; }
+      .hero-tag { margin-bottom: 20px; }
+      .hero-title { font-size: clamp(3rem, 10vw, 5rem); }
+      .hero-role { text-align: center; }
+      .hero-description { margin: 0 auto; }
+      .hero-actions { justify-content: center; }
+      .hero-visual { max-width: 290px; }
+      .hero-floating-label { left: -10px; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: clamp(2.2rem, 10.5vw, 3.5rem); }
+      .hero-role { font-size: 1.4rem; }
+      .hero-greeting { font-size: 1.1rem; }
+      .hero-description { font-size: .92rem; }
+      .hero-primary-btn, .hero-secondary-btn { padding: 12px 18px; font-size: .85rem; }
+      .hero-visual { max-width: 250px; }
+      .hero-marquee { padding: 14px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track, .hero-scroll i { animation: none; }
+      .hero-image-frame, .hero-primary-btn, .hero-secondary-btn { transition: none; }
+      .hero-content.hero-v2 { opacity: 1; transform: none; transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -309,23 +425,49 @@
   </nav>
 
   
-<!-- HEADER: GIỚI THIỆU -->
-<header>
-  <div class="hero-content">
-    <h1>
-      Mình là <span class="name">Thái</span>
-      <span class="student">Kỹ sư</span>
-      <span class="major">Công nghệ thông tin</span>
-    </h1>
-
-    <p class="subtitle">
-      IT Graduate | QA/Tester | Web Development
-    </p>
-
-    <a href="#contact" class="cta-btn">Liên hệ tôi →</a>
+<!-- HERO 2.0 -->
+<header id="home" class="hero-section">
+  <div class="hero-content hero-v2">
+    <div class="hero-text">
+      <div class="hero-tag"><span class="status-dot"></span> WELCOME TO MY PORTFOLIO</div>
+      <p class="hero-greeting">Xin chào, mình là</p>
+      <h1 class="hero-title">ĐÌNH <span>THÁI.</span></h1>
+      <h2 class="hero-role">Kỹ sư <span>Công nghệ thông tin</span></h2>
+      <p class="hero-description">
+        IT Graduate • QA/Tester • Web Development<br>
+        Đam mê công nghệ, kiểm thử phần mềm và xây dựng những sản phẩm số hữu ích.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="hero-primary-btn">Xem dự án <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        <a href="#contact" class="hero-secondary-btn">Liên hệ với mình <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-image-glow" aria-hidden="true"></div>
+      <div class="hero-image-frame">
+        <img src="https://i.postimg.cc/XvK74xJR/DThai34.jpg" alt="Ảnh chân dung Đình Thái" class="hero-portrait">
+      </div>
+      <div class="hero-floating-label"><span class="status-dot"></span> Building my journey</div>
+    </div>
   </div>
+  <a href="#about" class="hero-scroll">SCROLL TO EXPLORE <i class="fas fa-arrow-down" aria-hidden="true"></i></a>
 </header>
 
+<!-- DÒNG CHỮ CHẠY NGANG -->
+<div class="hero-marquee" aria-label="Software Testing, Web Development, Business Analysis">
+  <div class="marquee-track">
+    <div class="marquee-group">
+      <span>SOFTWARE TESTING</span><b>✦</b>
+      <span>WEB DEVELOPMENT</span><b>✦</b>
+      <span>BUSINESS ANALYSIS</span><b>✦</b>
+    </div>
+    <div class="marquee-group" aria-hidden="true">
+      <span>SOFTWARE TESTING</span><b>✦</b>
+      <span>WEB DEVELOPMENT</span><b>✦</b>
+      <span>BUSINESS ANALYSIS</span><b>✦</b>
+    </div>
+  </div>
+</div>
 
 <!-- ABOUT: VỀ TÔI -->
 <section id="about">
