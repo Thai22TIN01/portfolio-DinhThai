@@ -408,21 +408,156 @@
       .hero-image-frame, .hero-primary-btn, .hero-secondary-btn { transition: none; }
       .hero-content.hero-v2 { opacity: 1; transform: none; transition: none; }
     }
+
+    /* ===================================================
+       FLOATING DOCK 2.0: điều hướng nổi, độc lập với top-nav
+       =================================================== */
+    .top-nav .logo { text-decoration: none; display: inline-block; }
+    .logo-period { color: #98a5ff; }
+    .nav-kicker {
+      color: #adb4d4; font-size: .72rem; font-weight: 650;
+      letter-spacing: .18em; white-space: nowrap;
+    }
+    .nav-kicker span { color: #6470aa; padding: 0 .45rem; }
+
+    .floating-dock {
+      position: fixed;
+      z-index: 1100;
+      left: 50%;
+      bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px;
+      border: 1px solid rgba(174, 186, 255, .23);
+      border-radius: 999px;
+      background: rgba(19, 20, 34, .86);
+      -webkit-backdrop-filter: blur(22px) saturate(150%);
+      backdrop-filter: blur(22px) saturate(150%);
+      box-shadow: 0 15px 48px rgba(0, 0, 0, .50),
+                  inset 0 1px 0 rgba(255, 255, 255, .06);
+      max-width: calc(100vw - 24px);
+    }
+    .dock-link {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 51px;
+      height: 51px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      color: #b9bed5;
+      text-decoration: none;
+      font-size: 1.15rem;
+      background: transparent;
+      transition: transform .25s ease, background .25s ease,
+                  color .25s ease, box-shadow .25s ease;
+    }
+    .dock-link:hover {
+      color: #fff;
+      background: rgba(124, 142, 255, .14);
+      transform: translateY(-5px);
+    }
+    .dock-link.is-active {
+      color: #fff;
+      background: linear-gradient(135deg, #7890ff, #5369f8);
+      box-shadow: 0 4px 20px rgba(83, 105, 248, .44);
+    }
+    .dock-link:focus-visible {
+      outline: 2px solid #bac4ff;
+      outline-offset: 3px;
+    }
+    .dock-label { display: none; }
+    .dock-link::before {
+      content: attr(data-tooltip);
+      pointer-events: none;
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 15px);
+      transform: translate(-50%, 7px);
+      border-radius: 8px;
+      padding: 7px 11px;
+      background: #202238;
+      border: 1px solid rgba(152,165,255,.22);
+      color: #f5f6ff;
+      font-size: .73rem;
+      font-weight: 600;
+      line-height: 1.4;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .2s ease, transform .2s ease, visibility .2s;
+    }
+    .dock-link:hover::before, .dock-link:focus-visible::before {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+    /* Đảm bảo dock không che phần liên hệ cuối trang */
+    footer { padding-bottom: 138px; }
+    #home, #about, #skills, #projects, #contact { scroll-margin-top: 76px; }
+
+    @media (max-width: 600px) {
+      /* Khắc phục project card 400px gây tràn ngang trên điện thoại */
+      .projects-grid, .skills-grid { grid-template-columns: minmax(0, 1fr); }
+      .project-card, .glass-card { min-width: 0; }
+      .nav-kicker { font-size: .56rem; letter-spacing: .1em; }
+      .floating-dock {
+        gap: 2px;
+        padding: 6px;
+        bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+      }
+      .dock-link { width: 57px; height: 53px; border-radius: 20px; font-size: 1rem; gap: 3px; }
+      .dock-label {
+        display: block;
+        font-size: .57rem;
+        font-weight: 650;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .dock-link::before { display: none; }
+      footer { padding-bottom: 125px; }
+    }
+    @media (max-width: 350px) {
+      .dock-link { width: 50px; }
+      .nav-kicker { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .dock-link, .dock-link::before { transition: none; }
+    }
   </style>
 </head>
 <body>
 
-  <nav>
+  <!-- Thanh thương hiệu phía trên: tối giản để không trùng Floating Dock -->
+  <nav class="top-nav" aria-label="Thanh thương hiệu">
     <div class="nav-container">
-      <div class="logo">Đình Thái</div>
-      <div class="nav-links">
-        <a href="#about">Về tôi</a>
-        <a href="#skills">Kỹ năng</a>
-        <a href="#projects">Dự án</a>
-        <a href="#contact">Liên hệ</a>
-      </div>
+      <a href="#home" class="logo" aria-label="Đình Thái - Về đầu trang">Đình Thái<span class="logo-period">.</span></a>
+      <span class="nav-kicker">IT ENGINEER <span aria-hidden="true">/</span> PORTFOLIO</span>
     </div>
   </nav>
+
+  <!-- Floating Dock: điều hướng chính của Portfolio 2.0 -->
+  <div class="floating-dock" role="navigation" aria-label="Điều hướng các mục portfolio">
+    <a class="dock-link is-active" href="#home" data-section="home" data-tooltip="Trang chủ" aria-label="Trang chủ" aria-current="location">
+      <i class="fas fa-house" aria-hidden="true"></i><span class="dock-label">Trang chủ</span>
+    </a>
+    <a class="dock-link" href="#about" data-section="about" data-tooltip="Về tôi" aria-label="Về tôi">
+      <i class="fas fa-user" aria-hidden="true"></i><span class="dock-label">Về tôi</span>
+    </a>
+    <a class="dock-link" href="#skills" data-section="skills" data-tooltip="Kỹ năng" aria-label="Kỹ năng">
+      <i class="fas fa-code" aria-hidden="true"></i><span class="dock-label">Kỹ năng</span>
+    </a>
+    <a class="dock-link" href="#projects" data-section="projects" data-tooltip="Dự án" aria-label="Dự án">
+      <i class="fas fa-layer-group" aria-hidden="true"></i><span class="dock-label">Dự án</span>
+    </a>
+    <a class="dock-link" href="#contact" data-section="contact" data-tooltip="Liên hệ" aria-label="Liên hệ">
+      <i class="fas fa-envelope" aria-hidden="true"></i><span class="dock-label">Liên hệ</span>
+    </a>
+  </div>
 
   
 <!-- HERO 2.0 -->
@@ -686,6 +821,35 @@
     window.addEventListener('scroll', () => {
       document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 80);
     });
+
+    // Đồng bộ icon sáng trên dock với khu vực đang hiển thị.
+    const dockLinks = Array.from(document.querySelectorAll('.dock-link'));
+    const dockSections = Array.from(document.querySelectorAll('#home, #about, #skills, #projects, #contact'));
+    let dockTicking = false;
+
+    function updateDockActive() {
+      const referenceY = window.innerHeight * 0.42;
+      let currentId = 'home';
+      for (const section of dockSections) {
+        if (section.getBoundingClientRect().top <= referenceY) currentId = section.id;
+      }
+      for (const link of dockLinks) {
+        const active = link.dataset.section === currentId;
+        link.classList.toggle('is-active', active);
+        if (active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      }
+      dockTicking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!dockTicking) {
+        dockTicking = true;
+        requestAnimationFrame(updateDockActive);
+      }
+    }, { passive: true });
+    window.addEventListener('resize', updateDockActive);
+    window.addEventListener('load', updateDockActive);
+    updateDockActive();
   </script>
 
 </body>
