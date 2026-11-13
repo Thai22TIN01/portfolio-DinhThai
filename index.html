@@ -1124,5 +1124,26 @@
     syncThemeToggle();
   </script>
 
+<!-- Favicon DT - Lấy từ logo trên thanh điều hướng -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const logo = document.querySelector('.brand-mark');
+    if (!logo) return;
+
+    let favicon = document.querySelector('link[rel="icon"]');
+
+    if (!favicon) {
+      favicon = document.createElement('link');
+      favicon.rel = 'icon';
+      document.head.appendChild(favicon);
+    }
+
+    favicon.type = 'image/png';
+    favicon.href = logo.src;
+  });
+</script>
+
+
+  
 </body>
 </html>
