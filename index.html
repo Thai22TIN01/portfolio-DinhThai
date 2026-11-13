@@ -233,8 +233,9 @@
     }
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 3rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.7rem;
+      align-items: stretch;
     }
     .project-card {
       background: var(--surface);
@@ -242,6 +243,10 @@
       overflow: hidden;
       border: 1px solid var(--border);
       transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      height: 100%;
     }
     .project-card:hover {
       transform: translateY(-16px);
@@ -249,16 +254,45 @@
       box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), 0 0 40px var(--accent-glow);
     }
     .project-img {
+      display: block;
       width: 100%;
-      height: 260px;
+      height: 220px;
       object-fit: cover;
+      background: linear-gradient(135deg, #18234a, #4459bf);
       transition: transform 0.6s ease;
     }
     .project-card:hover .project-img {
       transform: scale(1.08);
     }
     .project-info {
-      padding: 2rem;
+      padding: 1.55rem;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+    .project-info h3 {
+      font-size: clamp(1.18rem, 1.75vw, 1.48rem);
+      line-height: 1.35;
+      margin-bottom: .7rem;
+    }
+    .project-info > p:not(.project-tech) {
+      font-size: .94rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+    .project-info .project-tech {
+      margin-top: auto;
+      padding-top: 1.2rem;
+      color: var(--accent);
+      font-size: .85rem;
+      line-height: 1.6;
+    }
+    @media (max-width: 960px) {
+      .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 700px) {
+      .projects-grid { grid-template-columns: minmax(0, 1fr); }
+      .project-img { height: clamp(205px, 52vw, 275px); }
     }
     .contact-links {
       display: flex;
@@ -879,13 +913,13 @@
     <!-- PROJECT 1: BLOCKCHAIN -->
     <div class="project-card">
       <img
-        src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&amp;auto=format&amp;fit=crop"
-        alt="Blockchain Certificate"
-        class="project-img"
+        src="https://images.unsplash.com/photo-1633265486064-086b219458ec?w=1200&amp;auto=format&amp;fit=crop"
+        alt="Minh họa bảo mật và chứng chỉ số Blockchain"
+        class="project-img" loading="lazy" decoding="async"
       >
 
       <div class="project-info">
-        <h3 style="font-size: 1.7rem;">
+        <h3>
           Website tra cứu chứng chỉ số
         </h3>
 
@@ -895,7 +929,7 @@
           chức năng tra cứu dữ liệu on-chain.
         </p>
 
-        <p style="color: var(--accent); margin-top: 1rem;">
+        <p class="project-tech">
           Blockchain • React • Node.js • MetaMask
         </p>
       </div>
@@ -905,13 +939,13 @@
     <!-- PROJECT 2: BARBERSHOP -->
     <div class="project-card">
       <img
-        src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&amp;auto=format&amp;fit=crop"
-        alt="Barbershop Management"
-        class="project-img"
+        src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=1200&amp;auto=format&amp;fit=crop"
+        alt="Hình ảnh thợ cắt tóc tại barbershop"
+        class="project-img" loading="lazy" decoding="async"
       >
 
       <div class="project-info">
-        <h3 style="font-size: 1.7rem;">
+        <h3>
           Website quản lý và đặt lịch cắt tóc
         </h3>
 
@@ -921,7 +955,7 @@
           sử dụng cơ sở dữ liệu SQL Server.
         </p>
 
-        <p style="color: var(--accent); margin-top: 1rem;">
+        <p class="project-tech">
           React • Vite • Node.js • SQL Server
         </p>
       </div>
@@ -931,13 +965,13 @@
     <!-- PROJECT 3: VOLUNTEER CONNECT -->
     <div class="project-card">
       <img
-        src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&amp;auto=format&amp;fit=crop"
-        alt="Volunteer Connect"
-        class="project-img"
+        src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&amp;auto=format&amp;fit=crop"
+        alt="Nhóm bạn trẻ hợp tác trong hoạt động cộng đồng"
+        class="project-img" loading="lazy" decoding="async"
       >
 
       <div class="project-info">
-        <h3 style="font-size: 1.7rem;">
+        <h3>
           Volunteer Connect
         </h3>
 
@@ -949,7 +983,7 @@
           và Acceptance Criteria.
         </p>
 
-        <p style="color: var(--accent); margin-top: 1rem;">
+        <p class="project-tech">
           Business Analysis • Agile/Scrum • MongoDB
         </p>
       </div>
