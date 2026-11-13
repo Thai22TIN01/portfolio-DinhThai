@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Ghi nhớ chế độ giao diện đã chọn; mặc định là Dark Mode. -->
+  <script>
+    (function () {
+      var saved = 'dark';
+      try { saved = localStorage.getItem('dinhthai-portfolio-theme') || 'dark'; } catch (e) {}
+      document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
+    })();
+  </script>
   <title>Đình Thái — IT Engineer | QA/Tester | Web Development</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
@@ -528,6 +536,163 @@
     @media (prefers-reduced-motion: reduce) {
       .dock-link, .dock-link::before { transition: none; }
     }
+
+    /* ======================================================
+       PORTFOLIO 2.1 — LIGHT / DARK MODE + FLOATING DOCK XL
+       Bản này giữ nguyên HTML và các hiệu ứng của Hero 2.0.
+       ====================================================== */
+    html {
+      --dock-bg: rgba(19, 20, 34, .94);
+      --dock-icon-color: #d7ddf5;
+      color-scheme: dark;
+    }
+    html[data-theme="light"] {
+      --bg: #f4f6ff;
+      --surface: #fff;
+      --surface-glass: rgba(255,255,255,.88);
+      --text: #1b2340;
+      --text-muted: #56627e;
+      --accent: #455fe5;
+      --accent-glow: rgba(69,95,229,.16);
+      --border: rgba(74,91,146,.18);
+      --dock-bg: rgba(255,255,255,.95);
+      --dock-icon-color: #52617f;
+      color-scheme: light;
+    }
+    body, nav, section, .glass-card, .project-card, footer,
+    .hero-section, .hero-marquee, .floating-dock, .theme-toggle {
+      transition: background-color .38s ease, color .38s ease,
+                  border-color .38s ease, box-shadow .38s ease;
+    }
+    /* Nút đổi giao diện chỉ hiển thị icon, có nhãn hỗ trợ truy cập. */
+    .top-nav .nav-container { gap: 16px; }
+    .top-nav .nav-kicker { margin-left: auto; }
+    .theme-toggle {
+      display: inline-flex; align-items: center; justify-content: center;
+      flex-shrink: 0; width: 44px; height: 44px;
+      padding: 0; border-radius: 50%;
+      border: 1px solid rgba(141,154,255,.45);
+      background: rgba(116,137,255,.10);
+      color: var(--text); font: inherit; font-size: .81rem;
+      font-weight: 700; cursor: pointer;
+    }
+    .theme-toggle i { font-size: 1rem; color: #a8b4ff; }
+    .theme-toggle:hover { background: rgba(116,137,255,.20); box-shadow: 0 0 20px var(--accent-glow); }
+    .theme-toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    html[data-theme="light"] .theme-toggle {
+      background: #e7ebff;
+      border-color: rgba(69,95,229,.35);
+    }
+    html[data-theme="light"] .theme-toggle i { color: #455fe5; }
+    html[data-theme="light"] nav.scrolled {
+      background: rgba(255,255,255,.93);
+      box-shadow: 0 6px 25px rgba(33,48,90,.10);
+    }
+    html[data-theme="light"] .nav-kicker { color: #596581; }
+    html[data-theme="light"] .nav-kicker span { color: #8995b4; }
+    html[data-theme="light"] .logo-period { color: #455fe5; }
+
+    /* Light Mode phải thay đổi thực sự toàn bộ nội dung, kể cả Hero. */
+    html[data-theme="light"] .hero-section {
+      background: radial-gradient(ellipse at 76% 42%, rgba(121,141,255,.24), transparent 54%),
+                  linear-gradient(135deg, #f8f9ff 0%, #e8eeff 100%);
+    }
+    html[data-theme="light"] header::before {
+      background: radial-gradient(circle at 15% 85%, rgba(99,118,245,.08), transparent 60%);
+    }
+    html[data-theme="light"] .hero-title span {
+      background: linear-gradient(90deg, #273c86, #536cfa);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    html[data-theme="light"] .hero-role span { color: #455fe5; }
+    html[data-theme="light"] .hero-tag { color: #3b51a4; border-color: rgba(69,95,229,.30); }
+    html[data-theme="light"] .hero-scroll { color: #596581; }
+    html[data-theme="light"] .hero-secondary-btn {
+      color: #273356; border-color: rgba(52,70,135,.30);
+      background: rgba(255,255,255,.65);
+    }
+    html[data-theme="light"] .hero-secondary-btn:hover { background: #fff; }
+    html[data-theme="light"] .hero-image-frame {
+      border-color: rgba(95,115,225,.32);
+      box-shadow: 0 24px 65px rgba(48,65,120,.20);
+    }
+    html[data-theme="light"] .glass-card {
+      box-shadow: 0 12px 34px rgba(38,53,108,.08);
+    }
+    html[data-theme="light"] .glass-card:hover {
+      box-shadow: 0 19px 48px rgba(38,53,108,.15), 0 0 27px var(--accent-glow);
+    }
+    html[data-theme="light"] .project-card:hover {
+      box-shadow: 0 25px 55px rgba(38,53,108,.15), 0 0 25px var(--accent-glow);
+    }
+    html[data-theme="light"] footer { border-top-color: var(--border); }
+
+    /* Dock lớn hơn + viền gradient và quầng sáng dịu. */
+    .floating-dock {
+      gap: 8px;
+      padding: 10px;
+      border: 2px solid transparent;
+      background:
+        linear-gradient(var(--dock-bg), var(--dock-bg)) padding-box,
+        linear-gradient(130deg, #b2bfff, #526bf8 45%, #987bff 77%, #b2bfff) border-box;
+      box-shadow: 0 18px 52px rgba(12,14,37,.44),
+                  0 0 30px rgba(104,120,255,.24),
+                  inset 0 1px 0 rgba(255,255,255,.10);
+    }
+    .dock-link {
+      width: 64px;
+      height: 64px;
+      font-size: 1.35rem;
+      color: var(--dock-icon-color);
+    }
+    .dock-link:hover {
+      transform: translateY(-6px) scale(1.07);
+      background: rgba(124,142,255,.16);
+      color: var(--text);
+    }
+    .dock-link.is-active {
+      color: #fff;
+      background: linear-gradient(135deg, #8296ff, #5369f8);
+      box-shadow: 0 6px 22px rgba(83,105,248,.42),
+                  0 0 0 2px rgba(179,192,255,.30);
+    }
+    html[data-theme="light"] .floating-dock {
+      box-shadow: 0 16px 42px rgba(48,65,120,.20),
+                  0 0 26px rgba(105,125,255,.20),
+                  inset 0 1px 0 rgba(255,255,255,.70);
+    }
+    html[data-theme="light"] .dock-link::before {
+      background: #fff; color: #273356;
+      border-color: rgba(69,95,229,.25);
+      box-shadow: 0 8px 24px rgba(40,53,106,.18);
+    }
+    footer { padding-bottom: 152px; }
+
+    @media (max-width: 760px) {
+      .top-nav .nav-kicker { display: none; }
+      .top-nav .nav-container { justify-content: space-between; }
+      .theme-toggle { margin-left: auto; }
+    }
+    @media (max-width: 600px) {
+      .floating-dock {
+        gap: 4px;
+        padding: 8px;
+        bottom: calc(11px + env(safe-area-inset-bottom, 0px));
+      }
+      .dock-link {
+        width: clamp(48px, 16vw, 64px);
+        height: 58px;
+        font-size: 1.16rem;
+        border-radius: 18px;
+        gap: 4px;
+      }
+      .dock-label { font-size: .60rem; }
+      footer { padding-bottom: 135px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body, nav, section, .glass-card, .project-card, footer,
+      .hero-section, .hero-marquee, .floating-dock, .theme-toggle { transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -537,6 +702,9 @@
     <div class="nav-container">
       <a href="#home" class="logo" aria-label="Đình Thái - Về đầu trang">Đình Thái<span class="logo-period">.</span></a>
       <span class="nav-kicker">IT ENGINEER <span aria-hidden="true">/</span> PORTFOLIO</span>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Chuyển sang giao diện sáng" title="Chuyển sang giao diện sáng">
+        <i class="fas fa-sun" aria-hidden="true"></i>
+      </button>
     </div>
   </nav>
 
@@ -589,17 +757,17 @@
 </header>
 
 <!-- DÒNG CHỮ CHẠY NGANG -->
-<div class="hero-marquee" aria-label="Software Testing, Web Development, Business Analysis">
+<div class="hero-marquee" aria-label="Software Testing, Web Development, Database and SQL">
   <div class="marquee-track">
     <div class="marquee-group">
       <span>SOFTWARE TESTING</span><b>✦</b>
       <span>WEB DEVELOPMENT</span><b>✦</b>
-      <span>BUSINESS ANALYSIS</span><b>✦</b>
+      <span>DATABASE &amp; SQL</span><b>✦</b>
     </div>
     <div class="marquee-group" aria-hidden="true">
       <span>SOFTWARE TESTING</span><b>✦</b>
       <span>WEB DEVELOPMENT</span><b>✦</b>
-      <span>BUSINESS ANALYSIS</span><b>✦</b>
+      <span>DATABASE &amp; SQL</span><b>✦</b>
     </div>
   </div>
 </div>
@@ -850,6 +1018,24 @@
     window.addEventListener('resize', updateDockActive);
     window.addEventListener('load', updateDockActive);
     updateDockActive();
+
+    // Light/Dark Mode: ghi nhớ lựa chọn, chỉ đổi icon; nhãn dùng cho hỗ trợ truy cập.
+    const themeToggle = document.getElementById('themeToggle');
+    function syncThemeToggle() {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      const label = isLight ? 'Chuyển sang giao diện tối' : 'Chuyển sang giao diện sáng';
+      themeToggle.setAttribute('aria-label', label);
+      themeToggle.setAttribute('title', label);
+      themeToggle.setAttribute('aria-pressed', String(isLight));
+      themeToggle.querySelector('i').className = isLight ? 'fas fa-moon' : 'fas fa-sun';
+    }
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('dinhthai-portfolio-theme', next); } catch (e) {}
+      syncThemeToggle();
+    });
+    syncThemeToggle();
   </script>
 
 </body>
